@@ -37,26 +37,70 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="gradient-primary text-white p-6 pb-8 rounded-b-3xl">
-        <h1 className="text-2xl font-bold mb-1">NOC HR</h1>
-        <p className="text-blue-100">Welcome back, Ahmed!</p>
+      <div className="gradient-primary text-white p-6 pb-12 rounded-b-[2rem]">
+        <h1 className="text-3xl font-bold mb-1">NOC HR</h1>
+        <p className="text-white/80 text-sm">Welcome back, Ahmed!</p>
       </div>
 
-      <div className="px-4 space-y-6 -mt-4">
-        {/* QR Scanner */}
+      <div className="px-4 -mt-8 space-y-5 pb-6">
+        {/* QR Scanner - Featured Action */}
         <QRScannerButton />
+
+        {/* Quick Access Grid */}
+        <section>
+          <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-1">
+            Quick Access
+          </h2>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              onClick={() => navigate("/org-chart")}
+              className="gradient-card rounded-2xl p-5 card-shadow hover:card-shadow-hover transition-all duration-200 border border-border/50 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <div className="flex flex-col items-start gap-3">
+                <div className="p-3 rounded-xl bg-primary/10">
+                  <Map className="h-5 w-5 text-primary" />
+                </div>
+                <div className="text-left">
+                  <h3 className="font-semibold text-sm mb-0.5">Org Chart</h3>
+                  <p className="text-xs text-muted-foreground">View hierarchy</p>
+                </div>
+              </div>
+            </button>
+
+            <button
+              onClick={() => navigate("/competency")}
+              className="gradient-card rounded-2xl p-5 card-shadow hover:card-shadow-hover transition-all duration-200 border border-border/50 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <div className="flex flex-col items-start gap-3">
+                <div className="p-3 rounded-xl bg-secondary/10">
+                  <Target className="h-5 w-5 text-secondary" />
+                </div>
+                <div className="text-left">
+                  <h3 className="font-semibold text-sm mb-0.5">Competency</h3>
+                  <p className="text-xs text-muted-foreground">View skills</p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </section>
 
         {/* Current Projects */}
         <section>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Current Projects</h2>
-            <Button variant="ghost" size="sm" className="text-primary">
-              View All <ArrowRight className="ml-1 h-4 w-4" />
+          <div className="flex items-center justify-between mb-3 px-1">
+            <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+              Current Projects
+            </h2>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-primary hover:text-primary h-8 text-xs -mr-2"
+            >
+              View All <ArrowRight className="ml-1 h-3.5 w-3.5" />
             </Button>
           </div>
-          <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
             {projects.map((project) => (
               <ProjectCard key={project.id} {...project} />
             ))}
@@ -65,63 +109,38 @@ const Home = () => {
 
         {/* Training Summary */}
         <section>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Training Summary</h2>
+          <div className="flex items-center justify-between mb-3 px-1">
+            <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+              Training Summary
+            </h2>
             <Button
               variant="ghost"
               size="sm"
-              className="text-primary"
+              className="text-primary hover:text-primary h-8 text-xs -mr-2"
               onClick={() => navigate("/trainings")}
             >
-              View All <ArrowRight className="ml-1 h-4 w-4" />
+              View All <ArrowRight className="ml-1 h-3.5 w-3.5" />
             </Button>
           </div>
-          <div className="flex gap-3 overflow-x-auto pb-2">
-            <TrainingCard type="running" title="Running Training" count={3} />
-            <TrainingCard type="scheduled" title="Scheduled Training" count={5} />
-            <TrainingCard type="progress" title="Overall Progress" progress={68} />
+          <div className="grid grid-cols-3 gap-3">
+            <TrainingCard type="running" title="Running" count={3} />
+            <TrainingCard type="scheduled" title="Scheduled" count={5} />
+            <TrainingCard type="progress" title="Progress" progress={68} />
           </div>
         </section>
 
         {/* Badges */}
         <section>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">My Badges</h2>
+          <div className="flex items-center justify-between mb-3 px-1">
+            <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+              My Badges
+            </h2>
           </div>
-          <div className="flex gap-3 overflow-x-auto pb-2">
+          <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
             {badges.map((badge) => (
               <BadgeCard key={badge.name} {...badge} />
             ))}
           </div>
-        </section>
-
-        {/* Quick Links */}
-        <section className="grid grid-cols-2 gap-3 pb-4">
-          <button
-            onClick={() => navigate("/org-chart")}
-            className="gradient-card rounded-xl p-4 card-shadow hover:card-shadow-hover transition-all duration-200 border border-border/50 hover:scale-[1.02]"
-          >
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="p-3 rounded-full bg-primary/10">
-                <Map className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="font-semibold text-sm">Map Me in NOC</h3>
-              <p className="text-xs text-muted-foreground">View org chart</p>
-            </div>
-          </button>
-
-          <button
-            onClick={() => navigate("/competency")}
-            className="gradient-card rounded-xl p-4 card-shadow hover:card-shadow-hover transition-all duration-200 border border-border/50 hover:scale-[1.02]"
-          >
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="p-3 rounded-full bg-primary/10">
-                <Target className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="font-semibold text-sm">Competency</h3>
-              <p className="text-xs text-muted-foreground">View skills</p>
-            </div>
-          </button>
         </section>
       </div>
     </div>

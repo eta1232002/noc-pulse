@@ -12,12 +12,17 @@ const BadgeCard = ({ name, description, dateAchieved, issuer }: BadgeCardProps) 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="min-w-[120px] gradient-card rounded-xl p-4 card-shadow hover:card-shadow-hover transition-all duration-200 border border-border/50 hover:scale-105">
-          <div className="flex flex-col items-center gap-2">
-            <div className="p-3 rounded-full bg-primary/10">
+        <button className="min-w-[160px] gradient-card rounded-2xl p-5 card-shadow hover:card-shadow-hover transition-all duration-200 border border-border/50 hover:scale-[1.02] active:scale-[0.98]">
+          <div className="flex flex-col items-center text-center gap-3">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10">
               <Award className="h-6 w-6 text-primary" />
             </div>
-            <p className="text-sm font-medium text-center line-clamp-2">{name}</p>
+            <div>
+              <h4 className="font-semibold text-sm mb-1 line-clamp-1">{name}</h4>
+              <p className="text-xs text-muted-foreground line-clamp-2">
+                {description}
+              </p>
+            </div>
           </div>
         </button>
       </DialogTrigger>
