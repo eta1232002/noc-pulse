@@ -96,6 +96,7 @@ const Home = () => {
               variant="ghost" 
               size="sm" 
               className="text-primary hover:text-primary h-8 text-xs -mr-2"
+              onClick={() => navigate("/projects")}
             >
               View All <ArrowRight className="ml-1 h-3.5 w-3.5" />
             </Button>
