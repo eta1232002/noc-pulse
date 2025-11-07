@@ -1,11 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Settings, HelpCircle, FileText, LogOut, Bell, Shield } from "lucide-react";
+import { Settings, HelpCircle, FileText, LogOut, Bell, Shield, Download } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const More = () => {
   const navigate = useNavigate();
 
   const menuItems = [
+    { icon: Download, label: "Install App", action: () => navigate("/install"), featured: true },
     { icon: Settings, label: "Settings", action: () => {} },
     { icon: Bell, label: "Notifications", action: () => {} },
     { icon: FileText, label: "Documents", action: () => {} },
@@ -33,10 +34,21 @@ const More = () => {
             >
               <CardContent className="pt-6">
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${item.danger ? "bg-red-500/10" : "bg-primary/10"}`}>
-                    <Icon className={`h-5 w-5 ${item.danger ? "text-red-600" : "text-primary"}`} />
+                  <div className={`p-2 rounded-lg ${
+                    item.danger ? "bg-red-500/10" : 
+                    item.featured ? "bg-gradient-to-br from-primary/20 to-secondary/20" : 
+                    "bg-primary/10"
+                  }`}>
+                    <Icon className={`h-5 w-5 ${
+                      item.danger ? "text-red-600" : 
+                      item.featured ? "text-primary" : 
+                      "text-primary"
+                    }`} />
                   </div>
-                  <span className={`font-medium ${item.danger ? "text-red-600" : ""}`}>
+                  <span className={`font-medium ${
+                    item.danger ? "text-red-600" : 
+                    item.featured ? "text-primary font-semibold" : ""
+                  }`}>
                     {item.label}
                   </span>
                 </div>

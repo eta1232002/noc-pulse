@@ -12,6 +12,7 @@ import OrgChart from "./pages/OrgChart";
 import Competency from "./pages/Competency";
 import ProjectDetails from "./pages/ProjectDetails";
 import More from "./pages/More";
+import Install from "./pages/Install";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/competency" element={<Competency />} />
             <Route path="/project/:id" element={<ProjectDetails />} />
             <Route path="/more" element={<More />} />
+            <Route path="/install" element={<Install />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
