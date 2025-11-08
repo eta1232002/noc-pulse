@@ -30,47 +30,64 @@ const QRScannerButton = () => {
 
   useEffect(() => {
     if (isScanning) {
-      const qrCodeScanner = new Html5Qrcode("qr-reader");
-      scannerRef.current = qrCodeScanner;
-
-      qrCodeScanner
-        .start(
-          { facingMode: "environment" },
-          {
-            fps: 10,
-            qrbox: { width: 250, height: 250 },
-          },
-          (decodedText) => {
-            toast({
-              title: "✅ Attendance Recorded Successfully",
-              description: "Sign in registered at " + new Date().toLocaleTimeString(),
-            });
-            stopScanner();
-          },
-          (errorMessage) => {
-            // Ignore decode errors (happens while scanning)
-          }
-        )
-        .then(() => {
-          setHasPermission(true);
-        })
-        .catch((err) => {
-          console.error("Camera error:", err);
+      // Wait for the Dialog to render the DOM element
+      const timeoutId = setTimeout(() => {
+        const element = document.getElementById("qr-reader");
+        if (!element) {
+          console.error("QR reader element not found");
           setHasPermission(false);
           toast({
-            title: "Camera Access Required",
-            description: "Please allow camera access to scan QR codes.",
+            title: "Scanner Error",
+            description: "Unable to initialize camera. Please try again.",
             variant: "destructive",
           });
-          stopScanner();
-        });
-    }
+          setIsScanning(false);
+          return;
+        }
 
-    return () => {
-      if (scannerRef.current?.isScanning) {
-        scannerRef.current.stop().catch(console.error);
-      }
-    };
+        const qrCodeScanner = new Html5Qrcode("qr-reader");
+        scannerRef.current = qrCodeScanner;
+
+        qrCodeScanner
+          .start(
+            { facingMode: "environment" },
+            {
+              fps: 10,
+              qrbox: { width: 250, height: 250 },
+            },
+            (decodedText) => {
+              toast({
+                title: "✅ Attendance Recorded Successfully",
+                description: "Sign in registered at " + new Date().toLocaleTimeString(),
+              });
+              stopScanner();
+            },
+            (errorMessage) => {
+              // Ignore decode errors (happens while scanning)
+            }
+          )
+          .then(() => {
+            setHasPermission(true);
+          })
+          .catch((err) => {
+            console.error("Camera error:", err);
+            setHasPermission(false);
+            toast({
+              title: "Camera Access Required",
+              description: "Please allow camera access to scan QR codes.",
+              variant: "destructive",
+            });
+            stopScanner();
+          });
+      }, 100);
+
+      return () => {
+        clearTimeout(timeoutId);
+        if (scannerRef.current?.isScanning) {
+          scannerRef.current.stop().catch(console.error);
+        }
+      };
+    }
   }, [isScanning, toast]);
 
   return (
